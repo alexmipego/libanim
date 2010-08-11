@@ -1,0 +1,8 @@
+#!/bin/sh
+SCRIPTPATH=`dirname $0`
+make distclean
+$SCRIPTPATH/build-device
+make distclean
+$SCRIPTPATH/build-simulator
+
+lipo -create libpng14.device.a libpng14.simulator.a -output libpng14.ios.a 
