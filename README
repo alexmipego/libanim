@@ -1,16 +1,1 @@
-Building from source
-
-1. Download libpng sources from http://www.libpng.org/pub/png/libpng.html and make sure to get the .tar.gz version for unix line endings or zip for Windows line endings.
-
-2. Download apng patch from http://littlesvr.ca/apng/ for the respective libpng version
-
-3. Extract libpng
-
-tar -xjf libpng-X.Y.Z.tar.gz
-
-4. Apply patch
-
-cd libpng-X.Y.Z
-patch -p0 < ../libpng-X.Y.Z-apng.txt
-
-5. to be continued...
+Source, documentation, wiki and issue tracker can be found at http://github.com/alexmipego/libanim/
