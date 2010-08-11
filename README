@@ -1,7 +1,3 @@
-This code is under LGPL until further notice.
-
-// TODO: License it
-
 Building from source
 
 1. Download libpng sources from http://www.libpng.org/pub/png/libpng.html and make sure to get the .tar.gz version for unix line endings or zip for Windows line endings.
@@ -17,4 +13,4 @@ tar -xjf libpng-X.Y.Z.tar.gz
 cd libpng-X.Y.Z
 patch -p0 < ../libpng-X.Y.Z-apng.txt
 
-5. Build apng
+5. to be continued...
