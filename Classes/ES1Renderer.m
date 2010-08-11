@@ -7,7 +7,7 @@
 //
 
 #import "ES1Renderer.h"
-#import "ImageLoader.h"
+#import "anim.h"
 
 @implementation ES1Renderer
 
@@ -41,7 +41,7 @@ GLuint *texture; // array for our textures
 		int w = 0, h = 0;
 		float delay = 0.0f;
 
-		texture = (GLuint *)loadTexture(path, &createTexture,  &w, &h, &num_frames, &delay);
+		texture = (GLuint *)anim_loadframes([path cString], &anim_glrenderer,  &w, &h, &num_frames, &delay);
 		NSLog(@"Extracted %d frames, the size is %dx%d and delay is set to %f.", num_frames, w, h, delay);
 		[NSTimer scheduledTimerWithTimeInterval:delay target:self selector:@selector(tick) userInfo:nil repeats:YES];
     }

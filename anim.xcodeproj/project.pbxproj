@@ -19,7 +19,7 @@
 		28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FD14FD0DC6FC130079059D /* EAGLView.m */; };
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
-		ACB3AB5E120D805000B0A069 /* ImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AB5D120D805000B0A069 /* ImageLoader.m */; };
+		ACB3AB5E120D805000B0A069 /* anim.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AB5D120D805000B0A069 /* anim.m */; };
 		ACB3AB75120D8DCD00B0A069 /* libpng14.ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACB3AB74120D8DCD00B0A069 /* libpng14.ios.a */; };
 		ACB3AB7D120D8E8E00B0A069 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ACB3AB7C120D8E8E00B0A069 /* libz.1.1.3.dylib */; };
 		ACB3AB8D120D8FA600B0A069 /* icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB3AB8C120D8FA600B0A069 /* icon_small.png */; };
@@ -48,8 +48,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* anim_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = anim_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* anim-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "anim-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		ACB3AB5C120D805000B0A069 /* ImageLoader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = ImageLoader.h; sourceTree = "<group>"; };
-		ACB3AB5D120D805000B0A069 /* ImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageLoader.m; sourceTree = "<group>"; };
+		ACB3AB5C120D805000B0A069 /* anim.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = anim.h; sourceTree = "<group>"; };
+		ACB3AB5D120D805000B0A069 /* anim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = anim.m; sourceTree = "<group>"; };
 		ACB3AB74120D8DCD00B0A069 /* libpng14.ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng14.ios.a; path = "../../Downloads/libpng-1.4.3/libpng14.ios.a"; sourceTree = SOURCE_ROOT; };
 		ACB3AB76120D8DDC00B0A069 /* png.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = png.h; path = "../../Downloads/libpng-1.4.3/png.h"; sourceTree = SOURCE_ROOT; };
 		ACB3AB7C120D8E8E00B0A069 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
@@ -88,8 +88,8 @@
 				28FD14FD0DC6FC130079059D /* EAGLView.m */,
 				1D3623240D0F684500981E51 /* animAppDelegate.h */,
 				1D3623250D0F684500981E51 /* animAppDelegate.m */,
-				ACB3AB5C120D805000B0A069 /* ImageLoader.h */,
-				ACB3AB5D120D805000B0A069 /* ImageLoader.m */,
+				ACB3AB5C120D805000B0A069 /* anim.h */,
+				ACB3AB5D120D805000B0A069 /* anim.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -221,7 +221,7 @@
 				28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */,
 				2514C27210084DB100A42282 /* ES1Renderer.m in Sources */,
 				2514C27310084DB100A42282 /* ES2Renderer.m in Sources */,
-				ACB3AB5E120D805000B0A069 /* ImageLoader.m in Sources */,
+				ACB3AB5E120D805000B0A069 /* anim.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

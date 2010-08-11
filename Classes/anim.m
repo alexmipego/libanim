@@ -6,20 +6,19 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "ImageLoader.h"
+#import "anim.h"
 #import <OpenGLES/ES1/gl.h>
 #include "png.h"
 
-
 #define TEXTURE_LOAD_ERROR 0
 
-void **loadTexture(NSString *fn, void* (*generatorFunc)(UInt32, UInt32, int,  const void*), int *width, int *height, UInt32 *num_frames, float *delay) 
+void **anim_loadframes(const char* filename, void *(*renderer)(UInt32, UInt32, int,  const void*), int *width, int *height, UInt32 *num_frames, float *delay)
 {
 	//header for testing if it is a png
 	png_byte header[8];
 	
 	//open file as binary
-	FILE *fp = fopen([fn cString], "rb");
+	FILE *fp = fopen(filename, "rb");
 	if (!fp) { return TEXTURE_LOAD_ERROR; }
 	
 	//read the header
@@ -164,7 +163,7 @@ void **loadTexture(NSString *fn, void* (*generatorFunc)(UInt32, UInt32, int,  co
 		png_read_image(png_ptr, row_ptrs);
 		
 		*delay = (float)(next_frame_delay_num/next_frame_delay_den);
-		data[count] = (void *)createTexture(*width, *height, color_type, pixels);
+		data[count] = (void *)(*renderer)(*width, *height, color_type, pixels);
 	}
 	
 	png_read_end( png_ptr, NULL);
@@ -205,7 +204,7 @@ void colortype2GlTex(int color_type, GLint *internalFormat, GLenum *format) {
 	}	
 }
 
-void* createTexture(UInt32 width, UInt32 height, int color_type,  const void* pixels) {
+void* anim_glrenderer(UInt32 width, UInt32 height, int color_type,  const void* pixels) {
 	GLuint texture = 0;
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
