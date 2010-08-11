@@ -12,6 +12,8 @@
 
 #define TEXTURE_LOAD_ERROR 0
 
+void colortype2GlTex(int color_type, GLint *internalFormat, GLenum *format);
+
 void **anim_loadframes(const char* filename, void *(*renderer)(UInt32, UInt32, int,  const void*), int *width, int *height, UInt32 *num_frames, float *delay)
 {
 	//header for testing if it is a png
@@ -175,6 +177,40 @@ void **anim_loadframes(const char* filename, void *(*renderer)(UInt32, UInt32, i
 	return data;
 }
 
+void releasePixels(void *info, const void *data, size_t size) { free((void*)data); }
+
+void* anim_cgrenderer(UInt32 width, UInt32 height, int color_type,  const void* pixels) {
+	const int bytes = 4;
+	
+	void * pixelsCopy = malloc(width * height * bytes);
+	memcpy(pixelsCopy, pixels, width * height * bytes);
+	
+	CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, pixelsCopy, 4*512*512, &releasePixels);
+	CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
+	
+	CGImageRef imgRef = CGImageCreate(width, height, 8, 4*8, 512*4, space, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big, provider, NULL, NO, kCGRenderingIntentDefault);
+	CGColorSpaceRelease(space);
+	CGDataProviderRelease(provider);
+
+	return imgRef;
+}
+
+void* anim_glrenderer(UInt32 width, UInt32 height, int color_type,  const void* pixels) {
+	GLuint texture = 0;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	
+	GLint internalFormat = 0;
+	GLenum format = 0;
+	colortype2GlTex(color_type, &internalFormat, &format);
+	
+	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, GL_UNSIGNED_BYTE, (GLvoid*)pixels);
+	
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); 
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);	
+	return (void*)texture;
+}
+
 void colortype2GlTex(int color_type, GLint *internalFormat, GLenum *format) {
 	switch(color_type)
 	{
@@ -202,20 +238,4 @@ void colortype2GlTex(int color_type, GLint *internalFormat, GLenum *format) {
 			*internalFormat = GL_RGBA;
 			*format = GL_RGBA;
 	}	
-}
-
-void* anim_glrenderer(UInt32 width, UInt32 height, int color_type,  const void* pixels) {
-	GLuint texture = 0;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	
-	GLint internalFormat = 0;
-	GLenum format = 0;
-	colortype2GlTex(color_type, &internalFormat, &format);
-	
-	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, GL_UNSIGNED_BYTE, (GLvoid*)pixels);
-	
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); 
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);	
-	return (void*)texture;
 }

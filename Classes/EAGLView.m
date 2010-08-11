@@ -10,11 +10,16 @@
 
 #import "ES1Renderer.h"
 #import "ES2Renderer.h"
+#import "anim.h"
 
 @implementation EAGLView
 
 @synthesize animating;
 @dynamic animationFrameInterval;
+
+static uint tex = 0;
+static UInt32 num_frames;
+static CGImageRef *images;
 
 // You must implement this method
 + (Class)layerClass
@@ -59,10 +64,27 @@
         NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
         if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending)
             displayLinkSupported = TRUE;
+		
+		NSString *path = [[NSBundle mainBundle] pathForResource:@"icon_small" ofType:@"png"];
+		int w = 0, h = 0;
+		float delay = 0.0f;
+		
+		images = (CGImageRef *)anim_loadframes([path cString], &anim_cgrenderer,  &w, &h, &num_frames, &delay);
+		NSLog(@"Extracted %d frames, the size is %dx%d and delay is set to %f.", num_frames, w, h, delay);
+		[NSTimer scheduledTimerWithTimeInterval:delay target:self selector:@selector(tick) userInfo:nil repeats:YES];
     }
-
+	
     return self;
 }
+
+- (void)tick {
+	tex++;
+	if(tex == num_frames)
+		tex = 0;
+	
+	imageView.image = [UIImage imageWithCGImage:images[tex]];
+}
+
 
 - (void)drawView:(id)sender
 {

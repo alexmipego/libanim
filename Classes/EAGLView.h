@@ -28,6 +28,8 @@
     // isn't available.
     id displayLink;
     NSTimer *animationTimer;
+	
+	IBOutlet UIImageView *imageView;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;
